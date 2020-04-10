@@ -1,0 +1,23 @@
+{
+  "name": "github-contributes-duration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/progfay/github-contributes-duration.git"
+  },
+  "author": "progfay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/progfay/github-contributes-duration/issues"
+  },
+  "homepage": "https://github.com/progfay/github-contributes-duration#readme",
+  "dependencies": {
+    "fast-html-parser": "^1.0.1",
+    "node-fetch": "^2.6.0"
+  }
+}
