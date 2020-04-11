@@ -10,7 +10,7 @@ const parseAttrs = (attrs) => {
   return parsedAttrs
 }
 
-fetch(`https://github.com/${encodeURIComponent(process.argv[2])}`)
+fetch(`https://github.com/users/${encodeURIComponent(process.argv[2])}/contributions`)
   .then(response => response.text())
   .then(text => parse(text, { lowerCaseTagName: false, script: false, style: false, pre: false }))
   .then(doc => doc.querySelectorAll('rect.day'))
