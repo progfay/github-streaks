@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/progfay/github-contributes-duration#readme",
   "dependencies": {
+    "chalk": "^4.0.0",
     "fast-html-parser": "^1.0.1",
     "node-fetch": "^2.6.0"
   }
