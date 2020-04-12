@@ -38,7 +38,7 @@ const main = async () => {
 
   const days = Array.from((new Map<string, number>(
     years.reduce((accumulator, year) => [...accumulator, ...year.entries()], [] as [string, number][]))).entries())
-  .sort((a, b) => a[0] < b[0] ? 1 : -1)
+    .sort((a, b) => a[0] < b[0] ? 1 : -1)
 
   const today = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`
   const todayIndex = days.findIndex(day => day[0] === today)
