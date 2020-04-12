@@ -4,7 +4,6 @@ import fetch from 'node-fetch'
 import chalk from 'chalk'
 import { range } from './lib/range'
 import { fetchElements } from './lib/fetchElements'
-import { getAttributes } from './lib/getAttributes'
 
 const GITHUB_USERNAME_REGEXP = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
 
@@ -30,8 +29,7 @@ const main = async () => {
     range(joinedYear, currentDate.getFullYear() + 1)
       .map(year => (
         fetchElements(`https://github.com/users/${username}/contributions?from=${year}-12-01&to=${year}-12-31`, 'rect.day')
-          .then(days => days.map(day => getAttributes(day)))
-          .then(days => days.map(day => ({ date: day['data-date'], count: parseInt(day['data-count'], 10) })))
+          .then(days => days.map(({ attributes }) => ({ date: attributes['data-date'], count: parseInt(attributes['data-count'], 10) })))
           .then(days => days.reduce((map, day) => map.set(day.date, day.count), new Map<string, number>()))
       ))
   )
