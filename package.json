@@ -20,5 +20,10 @@
     "chalk": "^4.0.0",
     "fast-html-parser": "^1.0.1",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/fast-html-parser": "^1.0.0",
+    "@types/node-fetch": "^2.5.6",
+    "typescript": "^3.8.3"
   }
 }
