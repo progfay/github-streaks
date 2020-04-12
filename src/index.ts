@@ -2,45 +2,11 @@
 
 import fetch from 'node-fetch'
 import chalk from 'chalk'
-import { parse } from 'fast-html-parser'
-
-import type { HTMLElement } from 'fast-html-parser'
-
-type AttributesType = {
-  [key: string]: string
-}
+import { range } from './lib/range'
+import { fetchElements } from './lib/fetchElements'
+import { getAttributes } from './lib/getAttributes'
 
 const GITHUB_USERNAME_REGEXP = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
-
-const range = (start: number, end: number): number[] => {
-  const r: number[] = []
-  for (let i = start; i < end; i++) {
-    r.push(i)
-  }
-  return r
-}
-
-const fetchElements = async (url: string, selector: string): Promise<HTMLElement[]> => {
-  const response = await fetch(url)
-  const html = await response.text()
-  const root = parse(html, {
-    lowerCaseTagName: false,
-    script: false,
-    style: false,
-    pre: false
-  })
-  const elements = root.querySelectorAll(selector)
-  return elements
-}
-
-const getAttributes = (element: HTMLElement) => {
-  const attributes: AttributesType = {}
-  for (const attr of element.rawAttrs.split(' ')) {
-    const [key, ...value] = attr.split('=')
-    attributes[key] = value.join('=').replace(/^"(.*)"$/, '$1')
-  }
-  return attributes
-}
 
 const main = async () => {
   const username = process.argv[2].replace(/^@/, '')
