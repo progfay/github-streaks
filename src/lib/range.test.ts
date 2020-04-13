@@ -1,7 +1,7 @@
 import { range } from './range'
 
 describe('range(start: number, end: number) function', () => {
-  describe('takes 2 values, `start` and `end` as arguments', () => {
+  describe('takes 2 numbers, `start` and `end` as arguments', () => {
     describe('`start` and `end` must be integer', () => {
       it('range(0.1, 5.5) throw error.', () => {
         expect(() => range(0.1, 5.5)).toThrow('First and second arguments of `range` function must be integer.')
