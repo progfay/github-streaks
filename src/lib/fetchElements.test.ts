@@ -6,6 +6,10 @@ describe('fetchElements(url: string, selector: string): function', () => {
     fetchMock.resetMocks()
   })
 
+  afterEach(() => {
+    fetchMock.resetMocks()
+  });
+
   describe('takes 2 strings, `url` and `selector` as arguments', () => {
     describe('`url` must be valid HTTP URL.', () => {
       it('fetchElements("/dev/null", "div") throw error.', async () => {
