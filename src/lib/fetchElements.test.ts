@@ -8,7 +8,7 @@ describe('fetchElements(url: string, selector: string): function', () => {
 
   afterEach(() => {
     fetchMock.resetMocks()
-  });
+  })
 
   describe('takes 2 strings, `url` and `selector` as arguments', () => {
     describe('`url` must be valid HTTP URL.', () => {
