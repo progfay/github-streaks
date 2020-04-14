@@ -1,7 +1,7 @@
 /* global fetchMock */
 import { fetchElements } from './fetchElements'
 
-describe('fetchElements(url: string, selector: string): function', () => {
+describe('fetchElements(url: string, selector: string) function', () => {
   beforeEach(() => {
     fetchMock.resetMocks()
   })
