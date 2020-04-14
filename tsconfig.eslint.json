@@ -5,8 +5,5 @@
   },
   "include": [
     "**/*",
-  ],
-  "exclude": [
-    "./dist/*.test.ts",
   ]
 }
