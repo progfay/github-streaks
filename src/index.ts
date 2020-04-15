@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
 import { range } from './lib/range'
 import { fetchElements } from './lib/fetchElements'
 import { fetchGitHubUserInfo } from './lib/fetchGitHubUserInfo'
@@ -13,14 +12,9 @@ const main = async () => {
     throw Error('The argument must be a GitHub username.')
   }
 
-  const joinedYear = await fetchGitHubUserInfo(username)
-    .then(json => json.created_at.replace(/^(\d{4}).+$/, '$1'))
-    .then(year => parseInt(year, 10))
-    .catch(error => {
-      console.log(chalk.red(error))
-      process.exit()
-    })
-
+  // eslint-disable-next-line camelcase
+  const { created_at } = await fetchGitHubUserInfo(username)
+  const joinedYear = parseInt(created_at.substring(0, 4), 10)
   const currentDate = new Date()
 
   const years = await Promise.all(
