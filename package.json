@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
+		"prebuild": "rm -rf dist",
     "build": "tsc -p ./tsconfig.json",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "npm run lint -- --fix"
