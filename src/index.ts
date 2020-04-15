@@ -5,13 +5,8 @@ import { fetchElements } from './lib/fetchElements'
 import { fetchGitHubUserInfo } from './lib/fetchGitHubUserInfo'
 import { formatDate } from './lib/formatDate'
 
-const GITHUB_USERNAME_REGEXP = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
-
 const main = async () => {
   const username = process.argv[2].replace(/^@/, '')
-  if (!GITHUB_USERNAME_REGEXP.test(username)) {
-    throw Error('The argument must be a GitHub username.')
-  }
 
   // eslint-disable-next-line camelcase
   const { created_at } = await fetchGitHubUserInfo(username)
