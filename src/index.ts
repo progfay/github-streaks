@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import fetch from 'node-fetch'
 import chalk from 'chalk'
 import { range } from './lib/range'
 import { fetchElements } from './lib/fetchElements'
+import { fetchGitHubUserInfo } from './lib/fetchGitHubUserInfo'
 
 const GITHUB_USERNAME_REGEXP = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
 
@@ -13,9 +13,7 @@ const main = async () => {
     throw Error('The argument must be a GitHub username.')
   }
 
-  const joinedYear = await fetch(`https://api.github.com/users/${username}`)
-    .then(response => response.json())
-    .then(json => { if (!json.created_at) throw new Error(json.message); return json })
+  const joinedYear = await fetchGitHubUserInfo(username)
     .then(json => json.created_at.replace(/^(\d{4}).+$/, '$1'))
     .then(year => parseInt(year, 10))
     .catch(error => {
