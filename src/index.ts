@@ -23,7 +23,7 @@ const main = async () => {
       ))
   )
 
-  const days = [...mergeMap(...years).entries()].sort((a, b) => a[0] < b[0] ? 1 : -1)
+  const days = [...mergeMap(...years)].sort((a, b) => a[0] < b[0] ? 1 : -1)
   const today = formatDate(currentDate)
   const todayIndex = days.findIndex(day => day[0] === today)
 
