@@ -4,6 +4,7 @@ import { range } from './lib/range'
 import { fetchElements } from './lib/fetchElements'
 import { fetchGitHubUserInfo } from './lib/fetchGitHubUserInfo'
 import { formatDate } from './lib/formatDate'
+import { mergeMap } from './lib/mergeMap'
 
 const main = async () => {
   const username = process.argv[2].replace(/^@/, '')
@@ -22,10 +23,7 @@ const main = async () => {
       ))
   )
 
-  const days = Array.from((new Map<string, number>(
-    years.reduce((accumulator, year) => [...accumulator, ...year.entries()], [] as [string, number][]))).entries())
-    .sort((a, b) => a[0] < b[0] ? 1 : -1)
-
+  const days = [...mergeMap(...years).entries()].sort((a, b) => a[0] < b[0] ? 1 : -1)
   const today = formatDate(currentDate)
   const todayIndex = days.findIndex(day => day[0] === today)
 
