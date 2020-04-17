@@ -1,7 +1,7 @@
 /* global fetchMock */
-import { fetchGitHubUserInfo } from './../fetchGitHubUserInfo'
+import { getGitHubUserInfo } from './../getGitHubUserInfo'
 
-describe('fetchGitHubUserInfo(username: string) function', () => {
+describe('getGitHubUserInfo(username: string) function', () => {
   beforeEach(() => {
     fetchMock.resetMocks()
   })
@@ -12,15 +12,15 @@ describe('fetchGitHubUserInfo(username: string) function', () => {
 
   describe('takes a string, `username` as argument', () => {
     describe('`username` must be valid GitHub username.', () => {
-      it('fetchGitHubUserInfo("!#$%^&*()_+") throw error.', async () => {
-        fetchGitHubUserInfo('!#$%^&*()_+')
+      it('getGitHubUserInfo("!#$%^&*()_+") throw error.', async () => {
+        getGitHubUserInfo('!#$%^&*()_+')
           .catch(error => {
             expect(error.message).toEqual('First argument must be valid GitHub username.')
           })
       })
 
-      it('fetchGitHubUserInfo("@progfay") throw error.', async () => {
-        fetchGitHubUserInfo('@progfay')
+      it('getGitHubUserInfo("@progfay") throw error.', async () => {
+        getGitHubUserInfo('@progfay')
           .catch(error => {
             expect(error.message).toEqual('First argument must be valid GitHub username.')
           })
@@ -28,7 +28,7 @@ describe('fetchGitHubUserInfo(username: string) function', () => {
     })
 
     describe('`username` must exists on GitHub as a user', () => {
-      it('fetchGitHubUserInfo("NOT-EXIST-USER") throw error.', async () => {
+      it('getGitHubUserInfo("NOT-EXIST-USER") throw error.', async () => {
         const information = {
           message: 'Not Found',
           documentation_url: 'https://developer.github.com/v3/users/#get-a-single-user'
@@ -36,7 +36,7 @@ describe('fetchGitHubUserInfo(username: string) function', () => {
 
         fetchMock.mockResponseOnce(JSON.stringify(information))
 
-        fetchGitHubUserInfo('NOT-EXIST-USER')
+        getGitHubUserInfo('NOT-EXIST-USER')
           .catch(error => {
             expect(error.message).toEqual(information.message)
           })
@@ -45,7 +45,7 @@ describe('fetchGitHubUserInfo(username: string) function', () => {
   })
 
   describe('return information of `username` at GitHub', () => {
-    it('fetchGitHubUserInfo("progfay") function return multiple elements.', async () => {
+    it('getGitHubUserInfo("progfay") function return multiple elements.', async () => {
       const information = {
         login: 'progfay',
         id: 19568747,
@@ -82,7 +82,7 @@ describe('fetchGitHubUserInfo(username: string) function', () => {
 
       fetchMock.mockResponseOnce(JSON.stringify(information))
 
-      fetchGitHubUserInfo('NOT-EXIST-USER')
+      getGitHubUserInfo('NOT-EXIST-USER')
         .then(info => {
           expect(info).toEqual(information)
         })

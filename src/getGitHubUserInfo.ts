@@ -37,7 +37,7 @@ export type GitHubUserInfoType = {
   updated_at: string
 }
 
-export const fetchGitHubUserInfo = async (username: string): Promise<GitHubUserInfoType> => {
+export const getGitHubUserInfo = async (username: string): Promise<GitHubUserInfoType> => {
   if (!GITHUB_USERNAME_REGEXP.test(username)) {
     throw Error('First argument must be valid GitHub username.')
   }

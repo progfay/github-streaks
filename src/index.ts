@@ -2,7 +2,7 @@
 
 import { range } from './range'
 import { fetchElements } from './fetchElements'
-import { fetchGitHubUserInfo } from './fetchGitHubUserInfo'
+import { getGitHubUserInfo } from './getGitHubUserInfo'
 import { formatDate } from './formatDate'
 import { mergeMap } from './mergeMap'
 
@@ -10,7 +10,7 @@ const main = async () => {
   const username = process.argv[2].replace(/^@/, '')
 
   // eslint-disable-next-line camelcase
-  const { created_at } = await fetchGitHubUserInfo(username)
+  const { created_at } = await getGitHubUserInfo(username)
   const joinedYear = parseInt(created_at.substring(0, 4), 10)
   const currentDate = new Date()
 
