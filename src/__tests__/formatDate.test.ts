@@ -1,5 +1,5 @@
 
-import { formatDate } from './formatDate'
+import { formatDate } from './../formatDate'
 
 describe('formatDate(date: Date) function', () => {
   describe('takes a Date, `date` as argument', () => {

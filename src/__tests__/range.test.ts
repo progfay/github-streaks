@@ -1,4 +1,4 @@
-import { range } from './range'
+import { range } from './../range'
 
 describe('range(start: number, end: number) function', () => {
   describe('takes 2 numbers, `start` and `end` as arguments', () => {

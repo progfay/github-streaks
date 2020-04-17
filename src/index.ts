@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { range } from './lib/range'
-import { fetchElements } from './lib/fetchElements'
-import { fetchGitHubUserInfo } from './lib/fetchGitHubUserInfo'
-import { formatDate } from './lib/formatDate'
-import { mergeMap } from './lib/mergeMap'
+import { range } from './range'
+import { fetchElements } from './fetchElements'
+import { fetchGitHubUserInfo } from './fetchGitHubUserInfo'
+import { formatDate } from './formatDate'
+import { mergeMap } from './mergeMap'
 
 const main = async () => {
   const username = process.argv[2].replace(/^@/, '')

@@ -1,5 +1,5 @@
 /* global fetchMock */
-import { fetchElements } from './fetchElements'
+import { fetchElements } from './../fetchElements'
 
 describe('fetchElements(url: string, selector: string) function', () => {
   beforeEach(() => {

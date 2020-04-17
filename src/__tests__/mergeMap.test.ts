@@ -1,4 +1,4 @@
-import { mergeMap } from './mergeMap'
+import { mergeMap } from './../mergeMap'
 
 describe('mergeMap(...maps: Map[]) function', () => {
   describe('takes one or more maps as arguments', () => {
