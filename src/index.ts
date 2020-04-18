@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { range } from './range'
-import { fetchElements } from './fetchElements'
 import { getGitHubUserInfo } from './getGitHubUserInfo'
+import { getGitHubDailyContributions } from './getGitHubDailyContributions'
 import { formatDate } from './formatDate'
 import { mergeMap } from './mergeMap'
 
@@ -16,11 +16,7 @@ const main = async () => {
 
   const years = await Promise.all(
     range(joinedYear, currentDate.getFullYear() + 1)
-      .map(year => (
-        fetchElements(`https://github.com/users/${username}/contributions?from=${year}-12-01&to=${year}-12-31`, 'rect.day')
-          .then(days => days.map(({ attributes }) => ({ date: attributes['data-date'], count: parseInt(attributes['data-count'], 10) })))
-          .then(days => days.reduce((map, day) => map.set(day.date, day.count), new Map<string, number>()))
-      ))
+      .map(year => getGitHubDailyContributions(username, year))
   )
 
   const days = [...mergeMap(...years)].sort((a, b) => a[0] < b[0] ? 1 : -1)
