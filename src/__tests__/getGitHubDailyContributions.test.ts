@@ -48,7 +48,7 @@ describe('getGitHubDailyContributions(username: string, year: string) function',
       it('getGitHubDailyContributions("progfay", 2019) return progfay\'s contributions in 2019.', async () => {
         fetchMock.mockResponseOnce(GitHubDailyContributionsResponse)
 
-        const actual = await getGitHubDailyContributions("progfay", 2019)
+        const actual = await getGitHubDailyContributions('progfay', 2019)
         expect(actual).toEqual(GitHubDailyContributions)
       })
     })
