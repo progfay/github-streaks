@@ -5,6 +5,7 @@ import { getGitHubUserInfo } from './getGitHubUserInfo'
 import { getGitHubDailyContributions } from './getGitHubDailyContributions'
 import { formatDate } from './formatDate'
 import { mergeMap } from './mergeMap'
+import { dayPeriodGenerator } from './dayPeriodGenerator'
 
 const main = async () => {
   const username = process.argv[2].replace(/^@/, '')
@@ -14,16 +15,24 @@ const main = async () => {
   const joinedYear = parseInt(created_at.substring(0, 4), 10)
   const currentDate = new Date()
 
-  const years = await Promise.all(
+  const annualDailyContributionsMaps = await Promise.all(
     range(joinedYear, currentDate.getFullYear() + 1)
       .map(year => getGitHubDailyContributions(username, year))
   )
 
-  const days = [...mergeMap(...years)].sort((a, b) => a[0] < b[0] ? 1 : -1)
-  const today = formatDate(currentDate)
-  const todayIndex = days.findIndex(day => day[0] === today)
+  const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
 
-  console.log(days.splice(todayIndex).findIndex(day => day[1] === 0))
+  let count = 0
+  let startDate = formatDate(currentDate)
+  for (const date of dayPeriodGenerator(new Date(), new Date(created_at))) {
+    const key = formatDate(date)
+    const contribution = allDailyContributions.get(key)
+    if (contribution === 0) break
+    count++
+    startDate = key
+  }
+
+  console.log(`${startDate} ~ ${formatDate(currentDate)} (${count} ${count > 1 ? 'days' : 'day'})`)
 }
 
 main()
