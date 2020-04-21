@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import arg from 'arg'
 import { range } from './lib/range'
 import { getGitHubUserInfo } from './lib/getGitHubUserInfo'
 import { getGitHubDailyContributions } from './lib/getGitHubDailyContributions'
@@ -8,7 +9,7 @@ import { mergeMap } from './lib/mergeMap'
 import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
 
 const main = async () => {
-  const username = process.argv[2].replace(/^@/, '')
+  const username = arg({})._[0].replace(/^@/, '')
 
   // eslint-disable-next-line camelcase
   const { created_at } = await getGitHubUserInfo(username)
