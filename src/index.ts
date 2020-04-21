@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { range } from './range'
-import { getGitHubUserInfo } from './getGitHubUserInfo'
-import { getGitHubDailyContributions } from './getGitHubDailyContributions'
-import { formatDate } from './formatDate'
-import { mergeMap } from './mergeMap'
-import { dayPeriodGenerator } from './dayPeriodGenerator'
+import { range } from './lib/range'
+import { getGitHubUserInfo } from './lib/getGitHubUserInfo'
+import { getGitHubDailyContributions } from './lib/getGitHubDailyContributions'
+import { formatDate } from './lib/formatDate'
+import { mergeMap } from './lib/mergeMap'
+import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
 
 const main = async () => {
   const username = process.argv[2].replace(/^@/, '')
