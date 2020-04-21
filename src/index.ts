@@ -4,9 +4,9 @@ import arg from 'arg'
 import { range } from './lib/range'
 import { getGitHubUserInfo } from './lib/getGitHubUserInfo'
 import { getGitHubDailyContributions } from './lib/getGitHubDailyContributions'
-import { formatDate } from './lib/formatDate'
 import { mergeMap } from './lib/mergeMap'
-import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
+import { getOngoingContinuousContributions } from './getOngoingContinuousContributions'
+import { formatDate } from './lib/formatDate'
 
 const main = async () => {
   const username = arg({})._[0].replace(/^@/, '')
@@ -22,18 +22,13 @@ const main = async () => {
   )
 
   const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
+  const { from, to, count } = getOngoingContinuousContributions(allDailyContributions)
 
-  let count = 0
-  let startDate = formatDate(currentDate)
-  for (const date of dayPeriodGenerator(new Date(), new Date(created_at))) {
-    const key = formatDate(date)
-    const contribution = allDailyContributions.get(key)
-    if (contribution === 0) break
-    count++
-    startDate = key
+  if (from && to) {
+    console.log(`${formatDate(from)} ~ ${formatDate(to)} (${count} ${count > 1 ? 'days' : 'day'})`)
+  } else {
+    console.log('No ongoing continuous contribution...')
   }
-
-  console.log(`${startDate} ~ ${formatDate(currentDate)} (${count} ${count > 1 ? 'days' : 'day'})`)
 }
 
 main()
