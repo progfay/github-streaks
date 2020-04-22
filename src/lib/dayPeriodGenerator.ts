@@ -1,19 +1,15 @@
-export function * dayPeriodGenerator (start: Date, end: Date) {
-  if (
-    start.getFullYear() === end.getFullYear() &&
-    start.getMonth() === end.getMonth() &&
-    start.getDate() === end.getDate()
-  ) {
-    return new Date(start.getFullYear(), start.getMonth(), start.getDate())
-  }
+import { Day } from './Day'
 
-  const from = new Date(start.getFullYear(), start.getMonth(), start.getDate())
-  const to = new Date(end.getFullYear(), end.getMonth(), end.getDate())
+export function * dayPeriodGenerator (start: Day, end: Day) {
+  if (start.shallowEqual(end)) return new Day(start)
+
+  const from = new Day(start)
+  const to = new Day(end)
   const step = from < to ? 1 : -1
 
   // eslint-disable-next-line no-unmodified-loop-condition
   while (step > 0 ? from < to : from > to) {
-    yield new Date(from)
+    yield new Day(from)
     from.setDate(from.getDate() + step)
   }
   return to

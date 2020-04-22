@@ -1,5 +1,7 @@
+import type { Day } from './lib/Day'
+
 export type ContinuousContributionsType = {
-  from: Date | null
-  to: Date | null
+  from: Day | null
+  to: Day | null
   count: number
 }
