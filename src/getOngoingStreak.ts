@@ -1,10 +1,10 @@
 import { Day } from './lib/Day'
 import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
-import type { ContinuousContributionsType } from './type'
+import type { StreakType } from './type'
 
-export const getOngoingContinuousContributions = (
+export const getOngoingStreak = (
   allDailyContributions: Map<string, number>
-): ContinuousContributionsType => {
+): StreakType => {
   const today = Day.today()
   const todayContribution = allDailyContributions.get(Day.today().toString())
 
@@ -16,7 +16,7 @@ export const getOngoingContinuousContributions = (
     }
   }
 
-  const continuousContributions: ContinuousContributionsType = {
+  const streak: StreakType = {
     from: new Day(today),
     to: null,
     count: 0
@@ -27,10 +27,10 @@ export const getOngoingContinuousContributions = (
   for (const day of dayPeriodGenerator(today, OLDEST_DAY)) {
     const key = day.toString()
     const contribution = allDailyContributions.get(key)
-    if (!contribution) return continuousContributions
-    continuousContributions.to = day
-    continuousContributions.count++
+    if (!contribution) return streak
+    streak.to = day
+    streak.count++
   }
 
-  return continuousContributions
+  return streak
 }

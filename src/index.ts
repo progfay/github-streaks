@@ -5,7 +5,7 @@ import { range } from './lib/range'
 import { getGitHubUserInfo } from './lib/getGitHubUserInfo'
 import { getGitHubDailyContributions } from './lib/getGitHubDailyContributions'
 import { mergeMap } from './lib/mergeMap'
-import { getOngoingContinuousContributions } from './getOngoingContinuousContributions'
+import { getOngoingStreak } from './getOngoingStreak'
 import { Day } from './lib/Day'
 
 const main = async () => {
@@ -22,12 +22,12 @@ const main = async () => {
   )
 
   const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
-  const { from, to, count } = getOngoingContinuousContributions(allDailyContributions)
+  const { from, to, count } = getOngoingStreak(allDailyContributions)
 
   if (from && to && count > 0) {
     console.log(`${from.toString()} ~ ${to.toString()} (${count} ${count === 1 ? 'days' : 'day'})`)
   } else {
-    console.log('No ongoing continuous contribution...')
+    console.log('No ongoing streak...')
   }
 }
 
