@@ -1,5 +1,5 @@
 {
-  "name": "github-contributes-duration",
+  "name": "github-streaks",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/progfay/github-contributes-duration.git"
+    "url": "git+https://github.com/progfay/github-streaks.git"
   },
   "author": "progfay",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/progfay/github-contributes-duration/issues"
+    "url": "https://github.com/progfay/github-streaks/issues"
   },
-  "homepage": "https://github.com/progfay/github-contributes-duration#readme",
+  "homepage": "https://github.com/progfay/github-streaks#readme",
   "dependencies": {
     "arg": "^4.1.3",
     "chalk": "^4.0.0",
