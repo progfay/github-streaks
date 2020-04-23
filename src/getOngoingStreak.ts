@@ -17,8 +17,8 @@ export const getOngoingStreak = (
   }
 
   const streak: StreakType = {
-    from: new Day(today),
-    to: null,
+    from: null,
+    to: new Day(today),
     count: 0
   }
 
@@ -28,7 +28,7 @@ export const getOngoingStreak = (
     const key = day.toString()
     const contribution = allDailyContributions.get(key)
     if (!contribution) return streak
-    streak.to = day
+    streak.from = day
     streak.count++
   }
 
