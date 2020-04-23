@@ -1,7 +1,14 @@
+type DateConstructorParameters =
+  | [Date]
+  | [string]
+  | [number?, number?, number?, number?, number?, number?, number?]
+
 export class Day extends Date {
-  constructor (date?: Date) {
-    const _date = date || new Date()
-    super(_date.getFullYear(), _date.getMonth(), _date.getDate())
+  constructor (...args: DateConstructorParameters) {
+    // @ts-ignore
+    const date = new Date(...args)
+    if (isNaN(date.getTime())) throw new Error('Invalid Date')
+    super(date.getFullYear(), date.getMonth(), date.getDate())
   }
 
   static today () {

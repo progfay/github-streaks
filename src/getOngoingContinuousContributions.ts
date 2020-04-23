@@ -5,7 +5,7 @@ import type { ContinuousContributionsType } from './type'
 export const getOngoingContinuousContributions = (
   allDailyContributions: Map<string, number>
 ): ContinuousContributionsType => {
-  const today = new Day(new Date())
+  const today = Day.today()
   const todayContribution = allDailyContributions.get(Day.today().toString())
 
   if (!todayContribution) {
@@ -22,7 +22,7 @@ export const getOngoingContinuousContributions = (
     count: 0
   }
 
-  const OLDEST_DAY = new Day(new Date('1889-01-01'))
+  const OLDEST_DAY = new Day('1889-01-01')
 
   for (const day of dayPeriodGenerator(today, OLDEST_DAY)) {
     const key = day.toString()
