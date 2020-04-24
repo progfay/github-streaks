@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import arg from 'arg'
+import chalk from 'chalk'
 import { range } from './lib/range'
 import { isGitHubUsername, getGitHubUserInfo, getGitHubDailyContributions } from './lib/GitHub'
 import { mergeMap } from './lib/mergeMap'
@@ -35,3 +36,6 @@ const main = async () => {
 }
 
 main()
+  .catch(({ message }) => {
+    console.error(chalk.red(message))
+  })
