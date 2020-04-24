@@ -12,7 +12,7 @@ const main = async () => {
   const username = arg({})._[0].replace(/^@/, '')
 
   if (!isGitHubUsername(username)) {
-    throw Error(`${username} is not valid GitHub username.`)
+    throw Error(`@${username} is not valid GitHub username.`)
   }
 
   // eslint-disable-next-line camelcase
