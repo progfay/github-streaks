@@ -17,11 +17,11 @@ const main = async () => {
 
   // eslint-disable-next-line camelcase
   const { created_at } = await getGitHubUserInfo(username)
-  const joinedYear = parseInt(created_at.substring(0, 4), 10)
+  const joinedDay = new Day(created_at)
   const today = Day.today()
 
   const annualDailyContributionsMaps = await Promise.all(
-    range(joinedYear, today.getFullYear() + 1)
+    range(joinedDay.getFullYear(), today.getFullYear() + 1)
       .map(year => getGitHubDailyContributions(username, year))
   )
 
