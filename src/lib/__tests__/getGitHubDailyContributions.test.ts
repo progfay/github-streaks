@@ -1,5 +1,5 @@
 /* global fetchMock */
-import { getGitHubDailyContributions } from './../getGitHubDailyContributions'
+import { getGitHubDailyContributions } from './../GitHub'
 import { GitHubDailyContributionsResponse, GitHubDailyContributions } from './data/GitHubDailyContributions.data'
 
 describe('getGitHubDailyContributions(username: string, year: string) function', () => {

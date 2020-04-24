@@ -1,5 +1,5 @@
 /* global fetchMock */
-import { getGitHubUserInfo } from './../getGitHubUserInfo'
+import { getGitHubUserInfo } from './../GitHub'
 
 describe('getGitHubUserInfo(username: string) function', () => {
   beforeEach(() => {

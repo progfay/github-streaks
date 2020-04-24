@@ -2,14 +2,17 @@
 
 import arg from 'arg'
 import { range } from './lib/range'
-import { getGitHubUserInfo } from './lib/getGitHubUserInfo'
-import { getGitHubDailyContributions } from './lib/getGitHubDailyContributions'
+import { isGitHubUsername, getGitHubUserInfo, getGitHubDailyContributions } from './lib/GitHub'
 import { mergeMap } from './lib/mergeMap'
 import { getOngoingStreak } from './getOngoingStreak'
 import { Day } from './lib/Day'
 
 const main = async () => {
   const username = arg({})._[0].replace(/^@/, '')
+
+  if (!isGitHubUsername(username)) {
+    throw Error(`${username} is not valid GitHub username.`)
+  }
 
   // eslint-disable-next-line camelcase
   const { created_at } = await getGitHubUserInfo(username)
