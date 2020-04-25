@@ -3,26 +3,23 @@
 import arg from 'arg'
 import chalk from 'chalk'
 import { range } from './lib/range'
-import { isGitHubUsername, getGitHubUserInfo, getGitHubDailyContributions } from './lib/GitHub'
+import { GitHubUser } from './lib/GitHubUser'
 import { mergeMap } from './lib/mergeMap'
 import { getOngoingStreak } from './getOngoingStreak'
 import { Day } from './lib/Day'
 
 const main = async () => {
   const username = arg({})._[0].replace(/^@/, '')
-
-  if (!isGitHubUsername(username)) {
-    throw Error(`@${username} is not valid GitHub username.`)
-  }
+  const user = new GitHubUser(username)
 
   // eslint-disable-next-line camelcase
-  const { created_at } = await getGitHubUserInfo(username)
+  const { created_at } = await user.getUserInfo()
   const joinedDay = new Day(created_at)
   const today = Day.today()
 
   const annualDailyContributionsMaps = await Promise.all(
     range(joinedDay.getFullYear(), today.getFullYear() + 1)
-      .map(year => getGitHubDailyContributions(username, year))
+      .map(year => user.getDailyContributions(year))
   )
 
   const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
