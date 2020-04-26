@@ -9,7 +9,7 @@ export class GitHubUser {
 
   constructor (username: string) {
     if (!GitHubUser.isGitHubUsername(username)) {
-      throw Error('First argument must be valid GitHub username.')
+      throw Error(`Invalid GitHub username: ${username}`)
     }
 
     this.username = username.replace(/^@/, '')

@@ -7,7 +7,7 @@ export class Day extends Date {
   constructor (...args: DateConstructorParameters) {
     // @ts-ignore
     const date = new Date(...args)
-    if (isNaN(date.getTime())) throw new Error('Invalid Date')
+    if (isNaN(date.getTime())) throw new Error('Invalid Day initialization')
     super(date.getFullYear(), date.getMonth(), date.getDate())
   }
 
