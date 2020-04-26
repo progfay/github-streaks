@@ -33,17 +33,6 @@ describe('GitHubUser class', () => {
 
   describe('GitHubUser.isGitHubUsername(username: string) static method', () => {
     describe('takes a string, `username` as argument', () => {
-      describe('`username` must be valid GitHub username.', () => {
-        it('new GitHubUser("!#$%^&*()_+") throw error.', () => {
-          expect(() => new GitHubUser('!#$%^&*()_+')).toThrow('First argument must be valid GitHub username.')
-        })
-      })
-
-      describe('`username` may start with the @', () => {
-        it('new GitHubUser("@progfay") will succeed.', () => {
-          expect(() => new GitHubUser('@progfay')).not.toThrow()
-        })
-      })
     })
 
     describe('return boolean of whether `username` is valid  GitHub username', () => {
