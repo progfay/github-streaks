@@ -5,7 +5,7 @@ describe('Day class', () => {
     describe('takes same parameters of Date constructor as arguments', () => {
       describe('arguments must be valid Date constructor\'s parameters', () => {
         it('new Day("") throw error.', () => {
-          expect(() => new Day('')).toThrow('Invalid Date')
+          expect(() => new Day('')).toThrow('Invalid Day initialization')
         })
       })
     })

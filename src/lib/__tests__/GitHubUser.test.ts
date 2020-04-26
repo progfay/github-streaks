@@ -19,7 +19,7 @@ describe('GitHubUser class', () => {
     describe('takes a string, `username` as argument', () => {
       describe('`username` must be valid GitHub username.', () => {
         it('new GitHubUser("!#$%^&*()_+") throw error.', () => {
-          expect(() => new GitHubUser('!#$%^&*()_+')).toThrow('First argument must be valid GitHub username.')
+          expect(() => new GitHubUser('!#$%^&*()_+')).toThrow('Invalid GitHub username: !#$%^&*()_+')
         })
       })
 
