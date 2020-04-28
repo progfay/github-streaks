@@ -8,6 +8,7 @@ import { mergeMap } from './lib/mergeMap'
 import { getLongestStreak } from './getLongestStreak'
 import { getOngoingStreak } from './getOngoingStreak'
 import { Day } from './lib/Day'
+import { showStreak } from './showStreak'
 
 const ARG_OPTIONS = {
   '--longest': Boolean
@@ -31,22 +32,12 @@ const main = async () => {
   )
 
   const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
-
-  if (longestFlag) {
-    const { from, to, count } = getLongestStreak(allDailyContributions, new Day('1989-01-01'), Day.today())
-    if (from && to && count > 0) {
-      console.log(`${from.toString()} ~ ${to.toString()} (${count} ${count === 1 ? 'days' : 'day'})`)
-    } else {
-      console.log('No streak...')
-    }
-  } else {
-    const { from, to, count } = getOngoingStreak(allDailyContributions)
-    if (from && to && count > 0) {
-      console.log(`${from.toString()} ~ ${to.toString()} (${count} ${count === 1 ? 'days' : 'day'})`)
-    } else {
-      console.log('No ongoing streak...')
-    }
-  }
+  showStreak(
+    allDailyContributions,
+    longestFlag
+      ? getLongestStreak(new Day('1989-01-01'), Day.today())
+      : getOngoingStreak
+  )
 }
 
 main()

@@ -7,6 +7,8 @@ export type StreakType = {
   count: number
 }
 
+export type StreakStrategyType = (contributions: Map<string, number>) => StreakType
+
 export type GitHubUserInfoType = {
   login: string
   id: number
