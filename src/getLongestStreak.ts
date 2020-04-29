@@ -2,10 +2,7 @@ import { Day } from './lib/Day'
 import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
 import type { StreakType, StreakStrategyType } from './type'
 
-export const getLongestStreak = (
-  since: Day,
-  until: Day
-): StreakStrategyType =>
+export const getLongestStreak = (since: Day, until: Day): StreakStrategyType =>
   (contributions) => {
     const longestStreak: StreakType = {
       from: null,
@@ -35,11 +32,8 @@ export const getLongestStreak = (
         streak.count = 0
         continue
       }
-      if (!streak.to) {
-        streak.to = day
-      } else {
-        streak.from = day
-      }
+
+      streak[streak.to ? 'from' : 'to'] = day
       streak.count++
     }
 
