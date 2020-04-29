@@ -11,12 +11,16 @@ import { Day } from './lib/Day'
 import { showStreak } from './showStreak'
 
 const ARG_OPTIONS = {
-  '--longest': Boolean
+  '--longest': Boolean,
+  '--since': String,
+  '--until': String
 }
 
 const main = async () => {
   const {
     '--longest': longestFlag = false,
+    '--since': since = '1989-01-01',
+    '--until': until = Day.today().toString(),
     _: [username = '']
   } = arg(ARG_OPTIONS)
   const user = new GitHubUser(username)
@@ -35,7 +39,7 @@ const main = async () => {
   showStreak(
     allDailyContributions,
     longestFlag
-      ? getLongestStreak(new Day('1989-01-01'), Day.today())
+      ? getLongestStreak(new Day(since), new Day(until))
       : getOngoingStreak
   )
 }
