@@ -19,15 +19,14 @@ const ARG_OPTIONS = {
 const main = async () => {
   const {
     '--longest': longestFlag = false,
-    '--since': since = '1989-01-01',
+    '--since': since = '',
     '--until': until = Day.today().toString(),
     _: [username = '']
   } = arg(ARG_OPTIONS)
-  const user = new GitHubUser(username)
 
-  // eslint-disable-next-line camelcase
-  const { created_at } = await user.getUserInfo()
-  const joinedDay = new Day(created_at)
+  const user = new GitHubUser(username)
+  const { created_at: createdAt } = await user.getUserInfo()
+  const joinedDay = new Day(createdAt)
   const today = Day.today()
 
   const annualDailyContributionsMaps = await Promise.all(
@@ -39,7 +38,7 @@ const main = async () => {
   showStreak(
     allDailyContributions,
     longestFlag
-      ? getLongestStreak(new Day(since), new Day(until))
+      ? getLongestStreak(new Day(since || createdAt), new Day(until))
       : getOngoingStreak
   )
 }
