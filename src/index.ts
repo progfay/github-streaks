@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import arg from 'arg'
 import chalk from 'chalk'
 import { range } from './lib/range'
