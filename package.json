@@ -8,6 +8,7 @@
   },
   "files": [
     "bin",
+		"dist",
     "package.json"
   ],
   "scripts": {
