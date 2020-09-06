@@ -5,7 +5,6 @@ import { mergeMap } from './lib/mergeMap'
 import { getLongestStreak } from './getLongestStreak'
 import { getCurrentStreak } from './getCurrentStreak'
 import { Day } from './lib/Day'
-import { formatStreak } from './formatStreak'
 
 const main = async () => {
   const username = process.argv[2]
@@ -23,8 +22,8 @@ const main = async () => {
 
   const currentStreak = getCurrentStreak(allDailyContributions)
   const longestStreak = getLongestStreak(allDailyContributions)
-  console.log(`Current Streak: ${formatStreak(currentStreak)}`)
-  console.log(`Longest Streak: ${formatStreak(longestStreak)}`)
+  console.log(`Current Streak: ${currentStreak.toString()}`)
+  console.log(`Longest Streak: ${longestStreak.toString()}`)
 }
 
 main()

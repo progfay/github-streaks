@@ -1,14 +1,16 @@
+import { Streak } from './lib/Streak'
 import { Day } from './lib/Day'
-import { INITIAL_STREAK, OLDEST_DAY } from './lib/consistant'
+import { OLDEST_DAY } from './lib/consistant'
 import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
-import type { StreakType, StreakStrategyType } from './type'
+import type { StreakStrategyType } from './type'
 
 export const getCurrentStreak: StreakStrategyType = contributions => {
   const today = Day.today()
   const todayContribution = contributions.get(today.toString())
-  if (!todayContribution) return { ...INITIAL_STREAK }
+  if (!todayContribution) return new Streak()
 
-  const streak: StreakType = { ...INITIAL_STREAK, to: today }
+  const streak = new Streak()
+  streak.to = today
 
   for (const day of dayPeriodGenerator(today, OLDEST_DAY)) {
     const key = day.toString()

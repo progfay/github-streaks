@@ -1,13 +1,7 @@
 /* eslint-disable camelcase */
-import type { Day } from './lib/Day'
+import { Streak } from './lib/Streak'
 
-export type StreakType = {
-  from: Day | null
-  to: Day | null
-  count: number
-}
-
-export type StreakStrategyType = (contributions: Map<string, number>) => StreakType
+export type StreakStrategyType = (contributions: Map<string, number>) => Streak
 
 export type GitHubUserInfoType = {
   login: string
