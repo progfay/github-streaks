@@ -22,7 +22,7 @@ const main = async () => {
   const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
 
   const currentStreak = getCurrentStreak(allDailyContributions)
-  const longestStreak = getLongestStreak(new Day(createdAt), Day.today())(allDailyContributions)
+  const longestStreak = getLongestStreak(allDailyContributions)
   console.log(`Current Streak: ${formatStreak(currentStreak)}`)
   console.log(`Longest Streak: ${formatStreak(longestStreak)}`)
 }
