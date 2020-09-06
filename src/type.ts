@@ -27,7 +27,7 @@ export type GitHubUserInfoType = {
   events_url: string
   received_events_url: string
   type: string
-  site_admin: false
+  site_admin: boolean
   name: string
   company: string
   blog: string

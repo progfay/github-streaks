@@ -4,7 +4,7 @@ import { range } from './lib/range'
 import { GitHubUser } from './lib/GitHubUser'
 import { mergeMap } from './lib/mergeMap'
 import { getLongestStreak } from './getLongestStreak'
-import { getOngoingStreak } from './getOngoingStreak'
+import { getCurrentStreak } from './getCurrentStreak'
 import { Day } from './lib/Day'
 import { showStreak } from './showStreak'
 
@@ -37,7 +37,7 @@ const main = async () => {
     allDailyContributions,
     longestFlag
       ? getLongestStreak(new Day(since || createdAt), new Day(until))
-      : getOngoingStreak
+      : getCurrentStreak
   )
 }
 

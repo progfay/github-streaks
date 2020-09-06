@@ -2,7 +2,7 @@ import { Day } from './lib/Day'
 import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
 import type { StreakType, StreakStrategyType } from './type'
 
-export const getOngoingStreak: StreakStrategyType = contributions => {
+export const getCurrentStreak: StreakStrategyType = contributions => {
   const today = Day.today()
   const todayContribution = contributions.get(Day.today().toString())
 
