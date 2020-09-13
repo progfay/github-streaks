@@ -3,7 +3,6 @@ import { range } from './lib/range'
 import { GitHubUser } from './lib/GitHubUser'
 import { getLongestStreak } from './getLongestStreak'
 import { getCurrentStreak } from './getCurrentStreak'
-import { Contributions } from './lib/Contributions'
 
 const main = async () => {
   const username = process.argv[2]
@@ -17,7 +16,7 @@ const main = async () => {
       .map(year => user.getAnnualDailyContributions(year))
   )
 
-  const allDailyContributions = Contributions.merge(...annualDailyContributionsMaps)
+  const allDailyContributions = annualDailyContributionsMaps.flat()
 
   const currentStreak = getCurrentStreak(allDailyContributions)
   const longestStreak = getLongestStreak(allDailyContributions)

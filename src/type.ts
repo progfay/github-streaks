@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { Contributions } from './lib/Contributions'
 import { Streak } from './lib/Streak'
 
 export interface Contribution {
@@ -7,7 +6,7 @@ export interface Contribution {
   count: number
 }
 
-export type StreakStrategyType = (contributions: Contributions) => Streak
+export type StreakStrategyType = (contributions: Contribution[]) => Streak
 
 export type GitHubUserInfoType = {
   login: string

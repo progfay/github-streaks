@@ -7,8 +7,8 @@ export const getLongestStreak: StreakStrategyType = contributions => {
   let startIndex = -1
   let endIndex = -1
 
-  for (let i = 0; i < contributions.list.length; i++) {
-    if (contributions.list[i].count !== 0) {
+  for (let i = 0; i < contributions.length; i++) {
+    if (contributions[i].count !== 0) {
       if (startIndex === -1) startIndex = i
       endIndex = i
     } else {
@@ -28,5 +28,5 @@ export const getLongestStreak: StreakStrategyType = contributions => {
   }
 
   if (longestStartIndex === -1) return new Streak([])
-  return new Streak(contributions.list.slice(longestStartIndex, longestEndIndex + 1))
+  return new Streak(contributions.slice(longestStartIndex, longestEndIndex + 1))
 }

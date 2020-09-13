@@ -1,9 +1,7 @@
 import fetch from 'node-fetch'
 import { fetchElements } from './fetchElements'
-import { Contributions } from './Contributions'
 
 import type { Contribution, GitHubUserInfoType } from '../type'
-// import { Day } from './Day'
 
 const GITHUB_USERNAME_REGEXP = /^@?[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
 
@@ -31,7 +29,7 @@ export class GitHubUser {
     return information as GitHubUserInfoType
   }
 
-  async getAnnualDailyContributions (year: number): Promise<Contributions> {
+  async getAnnualDailyContributions (year: number): Promise<Contribution[]> {
     if (year <= 0 || !Number.isInteger(year)) {
       throw Error('Second argument must be positive integer.')
     }
@@ -52,6 +50,6 @@ export class GitHubUser {
       })
     }
 
-    return new Contributions(contributions)
+    return contributions
   }
 }
