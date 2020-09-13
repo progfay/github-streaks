@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import https from 'https'
 import HTML from 'fast-html-parser'
 
 export const fetchElements = async (url: string, selector: string): Promise<HTML.HTMLElement[]> => {
@@ -10,8 +10,16 @@ export const fetchElements = async (url: string, selector: string): Promise<HTML
     throw new Error('Second argument must be not empty.')
   }
 
-  const response = await fetch(url)
-  const html = await response.text()
+  const html = await new Promise<string>((resolve, reject) => {
+    let text = ''
+    https.get(url, res => {
+      res.setEncoding('utf-8')
+      res.on('data', (chunk) => { text += chunk.toString() })
+      res.on('end', () => resolve(text))
+      res.on('error', reject)
+    })
+  })
+
   const root = HTML.parse(html, {
     lowerCaseTagName: false,
     script: false,

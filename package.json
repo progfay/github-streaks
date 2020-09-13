@@ -31,8 +31,7 @@
   "homepage": "https://github.com/progfay/github-streaks#readme",
   "dependencies": {
     "chalk": "^4.1.0",
-    "fast-html-parser": "^1.0.1",
-    "node-fetch": "^2.6.1"
+    "fast-html-parser": "^1.0.1"
   },
   "devDependencies": {
     "@types/fast-html-parser": "^1.0.0",
