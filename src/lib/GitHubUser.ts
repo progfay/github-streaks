@@ -3,7 +3,7 @@ import { fetchElements } from './fetchElements'
 import { Contributions } from './Contributions'
 
 import type { Contribution, GitHubUserInfoType } from '../type'
-import { Day } from './Day'
+// import { Day } from './Day'
 
 const GITHUB_USERNAME_REGEXP = /^@?[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
 
@@ -47,7 +47,7 @@ export class GitHubUser {
       const { 'data-date': date, 'data-count': count } = attributes
       if (!date.startsWith(`${year}-`)) continue
       contributions.push({
-        day: new Day(date),
+        day: date,
         count: parseInt(count, 10)
       })
     }

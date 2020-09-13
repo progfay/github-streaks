@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
 import { Contributions } from './lib/Contributions'
-import { Day } from './lib/Day'
 import { Streak } from './lib/Streak'
 
 export interface Contribution {
-  day: Day
+  day: string
   count: number
 }
 

@@ -3,18 +3,17 @@ import { range } from './lib/range'
 import { GitHubUser } from './lib/GitHubUser'
 import { getLongestStreak } from './getLongestStreak'
 import { getCurrentStreak } from './getCurrentStreak'
-import { Day } from './lib/Day'
 import { Contributions } from './lib/Contributions'
 
 const main = async () => {
   const username = process.argv[2]
   const user = new GitHubUser(username)
   const { created_at: createdAt } = await user.getUserInfo()
-  const joinedDay = new Day(createdAt)
-  const today = Day.today()
+  const joinedYear = parseInt(createdAt.substring(0, 4), 10)
+  const thisYear = new Date().getFullYear()
 
   const annualDailyContributionsMaps = await Promise.all(
-    range(joinedDay.getFullYear(), today.getFullYear() + 1)
+    range(joinedYear, thisYear + 1)
       .map(year => user.getAnnualDailyContributions(year))
   )
 
