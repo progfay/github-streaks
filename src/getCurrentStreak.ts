@@ -1,24 +1,18 @@
 import { Streak } from './lib/Streak'
 import { Day } from './lib/Day'
-import { OLDEST_DAY } from './lib/consistant'
-import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
+
 import type { StreakStrategyType } from './type'
 
 export const getCurrentStreak: StreakStrategyType = contributions => {
   const today = Day.today()
-  const todayContribution = contributions.get(today.toString())
-  if (!todayContribution) return new Streak()
+  const todayIndex = contributions.list.findIndex(contribution => contribution.day.shallowEqual(today))
 
-  const streak = new Streak()
-  streak.to = today
+  if (todayIndex === -1) throw new Error('Contributions has no today\'s information')
 
-  for (const day of dayPeriodGenerator(today, OLDEST_DAY)) {
-    const key = day.toString()
-    const contribution = contributions.get(key)
-    if (!contribution) return streak
-    streak.from = day
-    streak.count++
+  let index = todayIndex
+  for (; index >= 0; index--) {
+    if (contributions.list[index].count === 0) break
   }
 
-  return streak
+  return new Streak(contributions.list.slice(index + 1, todayIndex + 1))
 }

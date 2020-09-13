@@ -1,6 +1,9 @@
 import fetch from 'node-fetch'
 import { fetchElements } from './fetchElements'
-import type { GitHubUserInfoType } from '../type'
+import { Contributions } from './Contributions'
+
+import type { Contribution, GitHubUserInfoType } from '../type'
+import { Day } from './Day'
 
 const GITHUB_USERNAME_REGEXP = /^@?[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
 
@@ -28,7 +31,7 @@ export class GitHubUser {
     return information as GitHubUserInfoType
   }
 
-  async getDailyContributions (year: number) {
+  async getAnnualDailyContributions (year: number): Promise<Contributions> {
     if (year <= 0 || !Number.isInteger(year)) {
       throw Error('Second argument must be positive integer.')
     }
@@ -38,13 +41,17 @@ export class GitHubUser {
 
     if (elements.length === 0) throw new Error('No contributions found.')
 
-    const map = new Map<string, number>()
+    const contributions: Contribution[] = []
 
     for (const { attributes } of elements) {
       const { 'data-date': date, 'data-count': count } = attributes
-      map.set(date, parseInt(count, 10))
+      if (!date.startsWith(`${year}-`)) continue
+      contributions.push({
+        day: new Day(date),
+        count: parseInt(count, 10)
+      })
     }
 
-    return map
+    return new Contributions(contributions)
   }
 }

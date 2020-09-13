@@ -1,10 +1,10 @@
 import chalk from 'chalk'
 import { range } from './lib/range'
 import { GitHubUser } from './lib/GitHubUser'
-import { mergeMap } from './lib/mergeMap'
 import { getLongestStreak } from './getLongestStreak'
 import { getCurrentStreak } from './getCurrentStreak'
 import { Day } from './lib/Day'
+import { Contributions } from './lib/Contributions'
 
 const main = async () => {
   const username = process.argv[2]
@@ -15,10 +15,10 @@ const main = async () => {
 
   const annualDailyContributionsMaps = await Promise.all(
     range(joinedDay.getFullYear(), today.getFullYear() + 1)
-      .map(year => user.getDailyContributions(year))
+      .map(year => user.getAnnualDailyContributions(year))
   )
 
-  const allDailyContributions = mergeMap(...annualDailyContributionsMaps)
+  const allDailyContributions = Contributions.merge(...annualDailyContributionsMaps)
 
   const currentStreak = getCurrentStreak(allDailyContributions)
   const longestStreak = getLongestStreak(allDailyContributions)

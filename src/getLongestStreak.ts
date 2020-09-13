@@ -1,29 +1,32 @@
 import { Streak } from './lib/Streak'
-import { Day } from './lib/Day'
-import { OLDEST_DAY } from './lib/consistant'
-import { dayPeriodGenerator } from './lib/dayPeriodGenerator'
 import { StreakStrategyType } from './type'
 
 export const getLongestStreak: StreakStrategyType = contributions => {
-  let longestStreak: Streak = new Streak()
-  let streak: Streak = new Streak()
+  let longestStartIndex = -1
+  let longestEndIndex = -1
+  let startIndex = -1
+  let endIndex = -1
 
-  const today = Day.today()
-  for (const day of dayPeriodGenerator(today, OLDEST_DAY)) {
-    const key = day.toString()
-    const contribution = contributions.get(key)
-    if (!contribution) break
-
-    if (contribution === 0) {
-      if (streak.count > longestStreak.count) longestStreak = { ...streak }
-      streak = new Streak()
-      continue
+  for (let i = 0; i < contributions.list.length; i++) {
+    if (contributions.list[i].count !== 0) {
+      if (startIndex === -1) startIndex = i
+      endIndex = i
+    } else {
+      if (startIndex === -1) continue
+      if (longestEndIndex - longestStartIndex <= endIndex - startIndex) {
+        longestStartIndex = startIndex
+        longestEndIndex = endIndex
+      }
+      startIndex = -1
+      endIndex = -1
     }
-
-    if (!streak.to) streak.to = day
-    streak.from = day
-    streak.count++
   }
 
-  return streak.count < longestStreak.count ? longestStreak : streak
+  if (longestEndIndex - longestStartIndex <= endIndex - startIndex) {
+    longestStartIndex = startIndex
+    longestEndIndex = endIndex
+  }
+
+  if (longestStartIndex === -1) return new Streak([])
+  return new Streak(contributions.list.slice(longestStartIndex, longestEndIndex + 1))
 }
