@@ -30,7 +30,6 @@
   },
   "homepage": "https://github.com/progfay/github-streaks#readme",
   "dependencies": {
-    "arg": "^4.1.3",
     "chalk": "^4.1.0",
     "fast-html-parser": "^1.0.1",
     "node-fetch": "^2.6.1"
