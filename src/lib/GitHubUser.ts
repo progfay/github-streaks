@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import https from 'https'
 import { fetchElements } from './fetchElements'
 
 import type { Contribution, GitHubUserInfoType } from '../type'
@@ -21,12 +21,29 @@ export class GitHubUser {
   }
 
   async getUserInfo (): Promise<GitHubUserInfoType> {
-    const response = await fetch(`https://api.github.com/users/${this.username}`)
-    const information = await response.json()
+    const text = await new Promise<string>((resolve, reject) => {
+      let text = ''
+      https.get({
+        protocol: 'https:',
+        hostname: 'api.github.com',
+        path: `/users/${this.username}`,
+        headers: { 'User-Agent': '@progfay/github-streaks' }
+      },
+      res => {
+        res.setEncoding('utf-8')
+        res.on('data', (chunk) => { text += chunk.toString() })
+        res.on('end', () => resolve(text))
+        res.on('error', reject)
+      })
+    })
 
-    if (!information.id) throw Error(information.message || JSON.stringify(information))
-
-    return information as GitHubUserInfoType
+    try {
+      const information = JSON.parse(text)
+      if (!information.id) throw Error()
+      return information as GitHubUserInfoType
+    } catch {
+      throw new Error(text)
+    }
   }
 
   async getAnnualDailyContributions (year: number): Promise<Contribution[]> {
