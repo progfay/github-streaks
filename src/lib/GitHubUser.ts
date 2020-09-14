@@ -1,5 +1,5 @@
 import https from 'https'
-import { fetchElements } from './fetchElements'
+import HTML from 'fast-html-parser'
 
 import type { Contribution, GitHubUserInfoType } from '../type'
 
@@ -51,8 +51,23 @@ export class GitHubUser {
       throw Error('Second argument must be positive integer.')
     }
 
-    const url = `https://github.com/users/${this.username}/contributions?from=${year}-12-01&to=${year}-12-31`
-    const elements = await fetchElements(url, 'rect.day')
+    const html = await new Promise<string>((resolve, reject) => {
+      let text = ''
+      https.get(`https://github.com/users/${this.username}/contributions?from=${year}-12-01&to=${year}-12-31`, res => {
+        res.setEncoding('utf-8')
+        res.on('data', (chunk) => { text += chunk.toString() })
+        res.on('end', () => resolve(text))
+        res.on('error', reject)
+      })
+    })
+
+    const root = HTML.parse(html, {
+      lowerCaseTagName: false,
+      script: false,
+      style: false,
+      pre: false
+    })
+    const elements = root.querySelectorAll('rect.day')
 
     if (elements.length === 0) throw new Error('No contributions found.')
 
