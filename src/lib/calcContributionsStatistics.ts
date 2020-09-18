@@ -23,6 +23,8 @@ export const calcContributionsStatistics = (contributions: Contribution[]): Stat
   for (const contribution of contributions) {
     const { count } = contribution
     statistics.sum += count
+    statistics.max = Math.max(statistics.max, count)
+    statistics.min = Math.min(statistics.min, count)
     sumOfSquare += count ** 2
   }
 
