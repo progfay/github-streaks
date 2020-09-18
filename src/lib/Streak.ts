@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import { calcContributionsStatistics } from './calcContributionsStatistics'
 
 import type { Contribution, Statistics } from '../type'
@@ -25,11 +24,5 @@ export class Streak {
     }
 
     this.statistics = calcContributionsStatistics(contributions)
-  }
-
-  toString (): string {
-    if (!this.statistics.from || !this.statistics.to || this.statistics.sum < 0) return 'No streak...'
-
-    return `${chalk.green(this.statistics.from)} ~ ${chalk.green(this.statistics.to)} (${chalk.green.bold(this.statistics.days)} ${this.statistics.days > 1 ? 'days' : 'day'})`
   }
 }
