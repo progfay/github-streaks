@@ -1,4 +1,4 @@
-import { Contribution, Statistics } from './type'
+import { Contribution, Statistics } from '../type'
 
 export const calcContributionsStatistics = (contributions: Contribution[]): Statistics => {
   const statistics: Statistics = {

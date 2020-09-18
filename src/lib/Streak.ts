@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import { calcContributionsStatistics } from '../calcContributionsStatistics'
+import { calcContributionsStatistics } from './calcContributionsStatistics'
 
 import type { Contribution, Statistics } from '../type'
 
