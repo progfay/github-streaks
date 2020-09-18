@@ -1,45 +1,35 @@
 import chalk from 'chalk'
 import { calcContributionsStatistics } from '../calcContributionsStatistics'
 
-import type { Contribution } from '../type'
+import type { Contribution, Statistics } from '../type'
 
 export class Streak {
   contributions: Contribution[]
-  sum: number = 0
-  max: number = 0
-  min: number = 0
-  median: number = 0
-  distribution: number = 0
+  statistics: Statistics
 
   constructor (contributions: Contribution[]) {
     this.contributions = contributions
 
-    if (contributions.length === 0) return
-    if (contributions.some(contribution => contribution.count === 0)) return
+    if (contributions.some(contribution => contribution.count === 0)) {
+      this.statistics = {
+        from: '',
+        to: '',
+        days: 0,
+        sum: 0,
+        max: 0,
+        min: 0,
+        median: 0,
+        distribution: 0
+      }
+      return
+    }
 
-    const { sum, max, min, median, distribution } = calcContributionsStatistics(contributions)
-    this.sum = sum
-    this.max = max
-    this.min = min
-    this.median = median
-    this.distribution = distribution
-  }
-
-  get from () {
-    return this.contributions[0]?.day
-  }
-
-  get to () {
-    return this.contributions[this.contributions.length - 1]?.day
-  }
-
-  get days () {
-    return this.contributions.length
+    this.statistics = calcContributionsStatistics(contributions)
   }
 
   toString (): string {
-    if (!this.from || !this.to || this.sum < 0) return 'No streak...'
+    if (!this.statistics.from || !this.statistics.to || this.statistics.sum < 0) return 'No streak...'
 
-    return `${chalk.green(this.from.toString())} ~ ${chalk.green(this.to.toString())} (${chalk.green.bold(this.days)} ${this.days > 1 ? 'days' : 'day'})`
+    return `${chalk.green(this.statistics.from)} ~ ${chalk.green(this.statistics.to)} (${chalk.green.bold(this.statistics.days)} ${this.statistics.days > 1 ? 'days' : 'day'})`
   }
 }

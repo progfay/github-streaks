@@ -7,6 +7,9 @@ export interface Contribution {
 }
 
 export interface Statistics {
+  from: string
+  to: string
+  days: number
   sum: number
   median: number
   max: number
