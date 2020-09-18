@@ -6,6 +6,14 @@ export interface Contribution {
   count: number
 }
 
+export interface Statistics {
+  sum: number
+  median: number
+  max: number
+  min: number
+  distribution: number
+}
+
 export type StreakStrategyType = (contributions: Contribution[]) => Streak
 
 export type GitHubUserInfoType = {
