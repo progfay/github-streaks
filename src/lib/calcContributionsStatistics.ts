@@ -8,7 +8,7 @@ export const calcContributionsStatistics = (contributions: Contribution[]): Stat
     sum: 0,
     max: 0,
     min: 0,
-    median: 0,
+    mean: 0,
     stddev: 0
   }
   if (contributions.length === 0) return statistics
@@ -28,7 +28,7 @@ export const calcContributionsStatistics = (contributions: Contribution[]): Stat
     sumOfSquare += count ** 2
   }
 
-  statistics.median = statistics.sum / statistics.days
-  statistics.stddev = Math.sqrt((sumOfSquare / statistics.days) - statistics.median ** 2)
+  statistics.mean = statistics.sum / statistics.days
+  statistics.stddev = Math.sqrt((sumOfSquare / statistics.days) - statistics.mean ** 2)
   return statistics
 }

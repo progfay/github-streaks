@@ -11,7 +11,7 @@ export interface Statistics {
   to: string
   days: number
   sum: number
-  median: number
+  mean: number
   max: number
   min: number
   stddev: number
