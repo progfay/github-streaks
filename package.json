@@ -1,6 +1,6 @@
 {
   "name": "@progfay/github-streaks",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Check GitHub streaks from CLI",
   "main": "src/index.ts",
   "bin": {
