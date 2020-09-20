@@ -18,7 +18,7 @@ export class Streak {
         max: 0,
         min: 0,
         median: 0,
-        distribution: 0
+        stddev: 0
       }
       return
     }

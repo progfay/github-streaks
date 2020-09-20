@@ -9,7 +9,7 @@ export const calcContributionsStatistics = (contributions: Contribution[]): Stat
     max: 0,
     min: 0,
     median: 0,
-    distribution: 0
+    stddev: 0
   }
   if (contributions.length === 0) return statistics
 
@@ -29,6 +29,6 @@ export const calcContributionsStatistics = (contributions: Contribution[]): Stat
   }
 
   statistics.median = statistics.sum / statistics.days
-  statistics.distribution = sumOfSquare - statistics.median ** 2
+  statistics.stddev = (sumOfSquare / statistics.days) - statistics.median ** 2
   return statistics
 }

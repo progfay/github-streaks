@@ -15,7 +15,7 @@ interface Row {
   'Max': string
   'Min': string
   'Median': string
-  'Distrib': string
+  'Std dev': string
 }
 
 const convertStatisticsToRow = (category: string, statistics: Statistics): Row => ({
@@ -26,7 +26,7 @@ const convertStatisticsToRow = (category: string, statistics: Statistics): Row =
   Max: statistics.max.toString(),
   Min: statistics.min.toString(),
   Median: statistics.median.toFixed(2),
-  Distrib: statistics.distribution.toFixed(2)
+  'Std dev': statistics.stddev.toFixed(2)
 })
 
 const main = async () => {
@@ -49,7 +49,7 @@ const main = async () => {
     convertStatisticsToRow('Current Streak', currentStreak.statistics),
     convertStatisticsToRow('Longest Streak', longestStreak.statistics)
   ]
-  const table = convertToTable(rows, ['Category', 'From    ~     To ', 'Sum', 'Max', 'Min', 'Median', 'Distrib'])
+  const table = convertToTable(rows, ['Category', 'From    ~     To ', 'Sum', 'Max', 'Min', 'Median', 'Std dev'])
   console.log(table)
 }
 

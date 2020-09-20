@@ -14,7 +14,7 @@ export interface Statistics {
   median: number
   max: number
   min: number
-  distribution: number
+  stddev: number
 }
 
 export type StreakStrategyType = (contributions: Contribution[]) => Streak
