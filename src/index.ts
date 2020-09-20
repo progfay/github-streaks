@@ -20,7 +20,7 @@ interface Row {
 const convertStatisticsToRow = (category: string, statistics: Statistics): Row => ({
   Category: category,
   '   From    ~     To    ': statistics.days > 0 ? `${statistics.from} ~ ${statistics.to}` : '',
-  'Day Count': statistics.days.toString() + (statistics.days > 1 ? 'days' : 'day'),
+  'Day Count': statistics.days.toString() + (statistics.days > 1 ? ' days' : ' day '),
   Sum: statistics.sum.toString(),
   Max: statistics.max.toString(),
   Min: statistics.min.toString(),
@@ -48,7 +48,7 @@ const main = async () => {
     convertStatisticsToRow('Current Streak', currentStreak.statistics),
     convertStatisticsToRow('Longest Streak', longestStreak.statistics)
   ]
-  const table = convertToTable(rows, ['Category', '   From    ~     To    ', 'Sum', 'Max', 'Min', 'Median', 'Std dev'])
+  const table = convertToTable(rows, ['Category', '   From    ~     To    ', 'Day Count', 'Sum', 'Max', 'Min', 'Median', 'Std dev'])
   console.log(table)
 }
 
