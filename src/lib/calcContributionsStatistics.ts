@@ -29,6 +29,6 @@ export const calcContributionsStatistics = (contributions: Contribution[]): Stat
   }
 
   statistics.median = statistics.sum / statistics.days
-  statistics.stddev = (sumOfSquare / statistics.days) - statistics.median ** 2
+  statistics.stddev = Math.sqrt((sumOfSquare / statistics.days) - statistics.median ** 2)
   return statistics
 }
