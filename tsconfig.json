@@ -64,7 +64,7 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "exclude": [
-    "./**/*.test.ts",
+    "./**/__tests__",
     "./setupJest.ts"
   ]
 }
