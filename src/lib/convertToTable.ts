@@ -1,9 +1,3 @@
-const padCenter = (target: string, maxLength: number): string => (
-  target
-    .padStart(target.length + Math.floor((maxLength - target.length) / 2), ' ')
-    .padEnd(maxLength, ' ')
-)
-
 export function convertToTable<T extends { [key: string]: any }> (objects: T[], orderedKeys: (keyof T)[]) {
   const columnLength = orderedKeys.map(key => key.toString().length + 2)
 
@@ -17,13 +11,13 @@ export function convertToTable<T extends { [key: string]: any }> (objects: T[], 
   const rowDelimiter = '+' + columnLength.reduce((accr, len) => `${accr}${'-'.repeat(len)}+`, '')
   const cellDelimiter = '|'
   let table = rowDelimiter + '\n' +
-    cellDelimiter + orderedKeys.map((key, i) => padCenter(key as string, columnLength[i])).join(cellDelimiter) + cellDelimiter + '\n' +
+    cellDelimiter + orderedKeys.map((key, i) => ` ${(key as string)[i === 0 ? 'padEnd' : 'padStart'](columnLength[i] - 2)} `).join(cellDelimiter) + cellDelimiter + '\n' +
     rowDelimiter + '\n'
 
   for (const object of objects) {
     table += cellDelimiter
     for (let i = 0; i < orderedKeys.length; i++) {
-      table += padCenter(object[orderedKeys[i]], columnLength[i]) + cellDelimiter
+      table += ` ${(object[orderedKeys[i]] as string)[i === 0 ? 'padEnd' : 'padStart'](columnLength[i] - 2)} ${cellDelimiter}`
     }
     table += '\n'
     table += rowDelimiter + '\n'
