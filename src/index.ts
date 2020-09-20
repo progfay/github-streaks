@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import { range } from './lib/range'
 import { GitHubUser } from './lib/GitHubUser'
 import { getLongestStreak } from './getLongestStreak'
@@ -55,5 +54,5 @@ const main = async () => {
 
 main()
   .catch(({ message }) => {
-    console.error(chalk.red(message))
+    console.error(message)
   })
