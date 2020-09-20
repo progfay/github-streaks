@@ -2,6 +2,20 @@
 
 Check streak on GitHub from CLI with `ghs` command.
 
+```
+❯ npx @progfay/github-streaks @progfay
+
++-------------------+-------------------------+-----------+------+-----+-----+------+---------+
+| Category          |    From    ~     To     | Day Count |  Sum | Max | Min | Mean | Std dev |
++-------------------+-------------------------+-----------+------+-----+-----+------+---------+
+| All Contributions | 2016-01-01 ~ 2020-12-31 | 1827 days | 4970 |  56 |   0 | 2.72 |    5.51 |
++-------------------+-------------------------+-----------+------+-----+-----+------+---------+
+| Current Streak    | 2019-06-10 ~ 2020-09-20 |  469 days | 3202 |  36 |   1 | 6.83 |    6.91 |
++-------------------+-------------------------+-----------+------+-----+-----+------+---------+
+| Longest Streak    | 2019-06-10 ~ 2020-09-20 |  469 days | 3202 |  36 |   1 | 6.83 |    6.91 |
++-------------------+-------------------------+-----------+------+-----+-----+------+---------+
+```
+
 ### Requirements
 
 - Node.js v12.16.3 or later
@@ -9,19 +23,20 @@ Check streak on GitHub from CLI with `ghs` command.
 
 ### Usage
 
-#### Check ongoing streak
+#### Use instantly
 
 ```sh
+npx @progfay/github-streaks [username]
+```
+
+#### Use frequently
+
+```sh
+# global install
+npm install -g @progfay/github-streaks
+
+# then, call command
 ghs [username]
-```
-
-
-#### Check your longest streak
-
-```
-ghs --longest [username]
-# or search with date range
-ghs --longest --since=YYYY-MM-DD --until=YYYY-MM-DD [username]
 ```
 
 
