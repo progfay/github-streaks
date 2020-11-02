@@ -1,6 +1,6 @@
-## GitHub Streaks
-
-Check streak on GitHub from CLI with `ghs` command.
+<p align="center">
+  <img width="1280" height="640" src="/.github/thumbnail.png">
+</p>
 
 ```
 ❯ npx @progfay/github-streaks @progfay
