@@ -27,6 +27,8 @@
 
 ```sh
 npx @progfay/github-streaks [username]
+# or
+npm exec @progfay/github-streaks [username]
 ```
 
 #### Use frequently
