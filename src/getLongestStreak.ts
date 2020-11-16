@@ -2,31 +2,35 @@ import { Streak } from './lib/Streak'
 import { StreakStrategyType } from './type'
 
 export const getLongestStreak: StreakStrategyType = contributions => {
-  let longestStartIndex = -1
-  let longestEndIndex = -1
-  let startIndex = -1
-  let endIndex = -1
-
-  for (let i = 0; i < contributions.length; i++) {
-    if (contributions[i].count !== 0) {
-      if (startIndex === -1) startIndex = i
-      endIndex = i
-    } else {
-      if (startIndex === -1) continue
-      if (longestEndIndex - longestStartIndex <= endIndex - startIndex) {
-        longestStartIndex = startIndex
-        longestEndIndex = endIndex
+  const { longest } = contributions.reduce(({ longest, watching }, contribution, i) => {
+    if (contribution.count !== 0) {
+      return {
+        longest,
+        watching: {
+          start: watching.start === -1 ? i : watching.start,
+          end: i
+        }
       }
-      startIndex = -1
-      endIndex = -1
     }
-  }
 
-  if (longestEndIndex - longestStartIndex <= endIndex - startIndex) {
-    longestStartIndex = startIndex
-    longestEndIndex = endIndex
-  }
+    if (watching.start === -1) return { longest, watching }
 
-  if (longestStartIndex === -1) return new Streak([])
-  return new Streak(contributions.slice(longestStartIndex, longestEndIndex + 1))
+    const shouldUpdate = longest.end - longest.start <= watching.end - watching.start
+    return {
+      longest: shouldUpdate ? { ...watching } : longest,
+      watching
+    }
+  }, {
+    longest: {
+      start: -1,
+      end: -1
+    },
+    watching: {
+      start: -1,
+      end: -1
+    }
+  })
+
+  if (longest.start === -1) return new Streak([])
+  return new Streak(contributions.slice(longest.start, longest.end + 1))
 }
