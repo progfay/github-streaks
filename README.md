@@ -16,6 +16,8 @@
 +-------------------+-------------------------+-----------+------+-----+-----+------+---------+
 ```
 
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/progfay/github-streaks?style=for-the-badge&message=Code+Climate&labelColor=222222&logo=Code+Climate&logoColor=FFFFFF)](https://codeclimate.com/github/progfay/github-streaks/maintainability)
+
 ### Requirements
 
 - Node.js v12.16.3 or later
