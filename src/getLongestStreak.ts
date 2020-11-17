@@ -17,8 +17,11 @@ export const getLongestStreak: StreakStrategyType = contributions => {
 
     const shouldUpdate = longest.end - longest.start <= watching.end - watching.start
     return {
-      longest: shouldUpdate ? { ...watching } : longest,
-      watching
+      longest: shouldUpdate ? watching : longest,
+      watching: {
+        start: -1,
+        end: -1
+      }
     }
   }, {
     longest: {
