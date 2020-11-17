@@ -1,6 +1,13 @@
 import { Streak } from './lib/Streak'
 import { StreakStrategyType } from './type'
 
+interface Range {
+  start: number
+  end: number
+}
+
+const emptyRange = (): Range => ({ start: -1, end: -1 })
+
 export const getLongestStreak: StreakStrategyType = contributions => {
   const { longest } = contributions.reduce(({ longest, watching }, contribution, i) => {
     if (contribution.count !== 0) {
@@ -15,23 +22,14 @@ export const getLongestStreak: StreakStrategyType = contributions => {
 
     if (watching.start === -1) return { longest, watching }
 
-    const shouldUpdate = longest.end - longest.start <= watching.end - watching.start
+    const isNewLongestFound = longest.end - longest.start <= watching.end - watching.start
     return {
-      longest: shouldUpdate ? watching : longest,
-      watching: {
-        start: -1,
-        end: -1
-      }
+      longest: isNewLongestFound ? watching : longest,
+      watching: emptyRange()
     }
   }, {
-    longest: {
-      start: -1,
-      end: -1
-    },
-    watching: {
-      start: -1,
-      end: -1
-    }
+    longest: emptyRange(),
+    watching: emptyRange()
   })
 
   if (longest.start === -1) return new Streak([])
