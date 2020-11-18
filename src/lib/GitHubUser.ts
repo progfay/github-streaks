@@ -38,10 +38,6 @@ export class GitHubUser {
   }
 
   async getAnnualDailyContributions (year: number): Promise<Contribution[]> {
-    if (year <= 0 || !Number.isInteger(year)) {
-      throw Error('Second argument must be positive integer.')
-    }
-
     const html = await fetch(`https://github.com/users/${this.username}/contributions?from=${year}-12-01&to=${year}-12-31`)
     const root = HTML.parse(html, {
       lowerCaseTagName: false,
@@ -50,8 +46,6 @@ export class GitHubUser {
       pre: false
     })
     const elements = root.querySelectorAll('rect.day')
-
-    if (elements.length === 0) throw new Error('No contributions found.')
 
     const contributions: Contribution[] = []
 
