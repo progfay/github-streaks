@@ -1,5 +1,5 @@
-import https from 'https'
 import HTML from 'fast-html-parser'
+import { fetch } from './fetch'
 
 import type { Contribution, GitHubUserInfoType } from '../type'
 
@@ -21,20 +21,11 @@ export class GitHubUser {
   }
 
   async getUserInfo (): Promise<GitHubUserInfoType> {
-    const text = await new Promise<string>((resolve, reject) => {
-      let text = ''
-      https.get({
-        protocol: 'https:',
-        hostname: 'api.github.com',
-        path: `/users/${this.username}`,
-        headers: { 'User-Agent': '@progfay/github-streaks' }
-      },
-      res => {
-        res.setEncoding('utf-8')
-        res.on('data', (chunk) => { text += chunk.toString() })
-        res.on('end', () => resolve(text))
-        res.on('error', reject)
-      })
+    const text = await fetch({
+      protocol: 'https:',
+      hostname: 'api.github.com',
+      path: `/users/${this.username}`,
+      headers: { 'User-Agent': '@progfay/github-streaks' }
     })
 
     try {
@@ -51,16 +42,7 @@ export class GitHubUser {
       throw Error('Second argument must be positive integer.')
     }
 
-    const html = await new Promise<string>((resolve, reject) => {
-      let text = ''
-      https.get(`https://github.com/users/${this.username}/contributions?from=${year}-12-01&to=${year}-12-31`, res => {
-        res.setEncoding('utf-8')
-        res.on('data', (chunk) => { text += chunk.toString() })
-        res.on('end', () => resolve(text))
-        res.on('error', reject)
-      })
-    })
-
+    const html = await fetch(`https://github.com/users/${this.username}/contributions?from=${year}-12-01&to=${year}-12-31`)
     const root = HTML.parse(html, {
       lowerCaseTagName: false,
       script: false,
