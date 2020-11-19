@@ -34,13 +34,11 @@ const main = async () => {
   const { created_at: createdAt } = await user.getUserInfo()
   const joinedYear = parseInt(createdAt.substring(0, 4), 10)
   const joinedDay = createdAt.substring(0, 10)
-  const date = new Date()
-  const thisYear = date.getFullYear()
-  const today = `${thisYear}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
+  const now = new Date()
+  const today = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`
 
   const annualDailyContributionsMaps = await Promise.all(
-    range(joinedYear, thisYear + 1)
-      .map(year => user.getAnnualDailyContributions(year))
+    range(joinedYear, now.getFullYear() + 1).map(year => user.getAnnualDailyContributions(year))
   )
 
   const annualDailyContributions = annualDailyContributionsMaps.flat()
