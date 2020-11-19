@@ -11,20 +11,19 @@ const emptyRange = (): Range => ({ start: -1, end: -1 })
 export const getLongestStreak: StreakStrategyType = contributions => {
   const { longest } = contributions.reduce(({ longest, watching }, contribution, i) => {
     if (contribution.count !== 0) {
+      const updated: Range = {
+        start: watching.start === -1 ? i : watching.start,
+        end: i
+      }
+      const isNewLongestFound = longest.end - longest.start <= updated.end - updated.start
       return {
-        longest,
-        watching: {
-          start: watching.start === -1 ? i : watching.start,
-          end: i
-        }
+        longest: isNewLongestFound ? updated : longest,
+        watching: updated
       }
     }
 
-    if (watching.start === -1) return { longest, watching }
-
-    const isNewLongestFound = longest.end - longest.start <= watching.end - watching.start
     return {
-      longest: isNewLongestFound ? watching : longest,
+      longest,
       watching: emptyRange()
     }
   }, {
