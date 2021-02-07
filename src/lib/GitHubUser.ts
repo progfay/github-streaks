@@ -45,13 +45,13 @@ export class GitHubUser {
       style: false,
       pre: false
     })
-    const elements = root.querySelectorAll('rect.day')
+    const elements = root.querySelectorAll('rect.ContributionCalendar-day')
 
     const contributions: Contribution[] = []
 
     for (const { attributes } of elements) {
       const { 'data-date': date, 'data-count': count } = attributes
-      if (!date.startsWith(`${year}-`)) continue
+      if (!count || !date || !date.startsWith(`${year}-`)) continue
       contributions.push({
         day: date,
         count: parseInt(count, 10)
