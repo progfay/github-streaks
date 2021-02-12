@@ -1,4 +1,4 @@
-import HTML from 'fast-html-parser'
+import { tokenize } from 'simple-html-tokenizer'
 import { fetch } from './fetch'
 
 import type { Contribution, GitHubUserInfoType } from '../type'
@@ -39,18 +39,19 @@ export class GitHubUser {
 
   async getAnnualDailyContributions (year: number): Promise<Contribution[]> {
     const html = await fetch(`https://github.com/users/${this.username}/contributions?from=${year}-12-01&to=${year}-12-31`)
-    const root = HTML.parse(html, {
-      lowerCaseTagName: false,
-      script: false,
-      style: false,
-      pre: false
+    const tokens = tokenize(html, {
+      loc: false,
+      mode: 'codemod'
     })
-    const elements = root.querySelectorAll('rect.ContributionCalendar-day')
 
     const contributions: Contribution[] = []
 
-    for (const { attributes } of elements) {
-      const { 'data-date': date, 'data-count': count } = attributes
+    for (const token of tokens) {
+      if (token.type !== 'StartTag' || token.tagName !== 'rect') continue
+      const [, className] = token.attributes.find(attribute => attribute[0] === 'class') ?? []
+      if (className !== 'ContributionCalendar-day') continue
+      const [, date] = token.attributes.find(attribute => attribute[0] === 'data-date') ?? []
+      const [, count] = token.attributes.find(attribute => attribute[0] === 'data-count') ?? []
       if (!count || !date || !date.startsWith(`${year}-`)) continue
       contributions.push({
         day: date,

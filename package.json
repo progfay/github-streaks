@@ -29,11 +29,7 @@
     "url": "https://github.com/progfay/github-streaks/issues"
   },
   "homepage": "https://github.com/progfay/github-streaks#readme",
-  "dependencies": {
-    "fast-html-parser": "^1.0.1"
-  },
   "devDependencies": {
-    "@types/fast-html-parser": "1.0.1",
     "@types/jest": "26.0.20",
     "@types/node-fetch": "2.5.8",
     "@typescript-eslint/eslint-plugin": "4.15.0",
@@ -52,5 +48,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "simple-html-tokenizer": "^0.5.11"
   }
 }
