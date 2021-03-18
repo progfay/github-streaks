@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/fast-html-parser": "1.0.1",
-    "@types/jest": "26.0.20",
+    "@types/jest": "26.0.21",
     "@types/node-fetch": "2.5.8",
     "@typescript-eslint/eslint-plugin": "4.18.0",
     "@typescript-eslint/parser": "4.18.0",
