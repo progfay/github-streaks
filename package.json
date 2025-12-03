@@ -33,7 +33,7 @@
     "fast-html-parser": "^1.0.1"
   },
   "devDependencies": {
-    "@types/fast-html-parser": "1.0.2",
+    "@types/fast-html-parser": "1.0.4",
     "@types/jest": "29.4.0",
     "@types/node-fetch": "3.0.2",
     "@typescript-eslint/eslint-plugin": "5.52.0",
